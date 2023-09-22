@@ -1,29 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestMeasureForce : MonoBehaviour
 {
     Rigidbody2D rb;
     [SerializeField] private float power;
     [SerializeField] private GameObject fulcrum;
+    [SerializeField] private GameObject force_point;
+    [SerializeField] private GameObject flags_manager;
+    [SerializeField] private GameObject power_slider;
     private Vector2 fulcrum_pos;
-    private Transform thisTransform;
+    private Vector3 force_pos;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         fulcrum_pos = fulcrum.GetComponent<Transform>().position;
+        force_pos = force_point.GetComponent<Transform>().position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // // objectの向きに合わせて力を加える
-        // rb.AddForce(transform.right * power);
-        // fulcrumの位置に向けて力を加える
-        rb.AddForce((fulcrum_pos - (Vector2)transform.position).normalized * power);
-        // 力の大きさをデバッグするために線を引く
-        Debug.DrawRay(transform.position, transform.right * power, Color.red);
+        // rb.AddForce((fulcrum_pos - (Vector2)transform.position).normalized * power);
+        // Debug.DrawRay(transform.position, transform.right * power, Color.red);
+        if (flags_manager.GetComponent<TestFlags>().getFlag("swing"))
+        {
+
+        force_pos = force_point.GetComponent<Transform>().position;
+        rb.AddForceAtPosition((fulcrum_pos-(Vector2)force_pos).normalized * power * power_slider.GetComponent<Slider>().value , force_pos);
+        Debug.DrawRay(force_pos, (fulcrum_pos-(Vector2)force_pos).normalized * power* power_slider.GetComponent<Slider>().value, Color.red);
+        }
     }
 }

@@ -13,6 +13,10 @@ public class TestLinePendulum : MonoBehaviour
     [SerializeField] private GameObject linePrefab;
     GameObject line;
     LineRenderer lineRenderer;
+
+    [SerializeField] private GameObject flags_manager;
+    [SerializeField] private float speed;
+    private float length;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +26,31 @@ public class TestLinePendulum : MonoBehaviour
         lineRenderer = line.GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, Object1.GetComponent<Transform>().position);
         lineRenderer.SetPosition(1, Object2.GetComponent<Transform>().position);
+        length = Vector2.Distance(Object1.GetComponent<Transform>().position, Object2.GetComponent<Transform>().position);
     }
 
     void Update()
     {
-        lineRenderer.SetPosition(0, Object1.GetComponent<Transform>().position);
+        if (flags_manager.GetComponent<TestFlags>().getFlag("detach"))
+        {
+            if (length>0){
+            lineRenderer.SetPosition(1, Object2.GetComponent<Transform>().position);
+            // 右方向にlengthの長さの線を描画
+            Vector3 new_pos = Object2.GetComponent<Transform>().right * length;
+            lineRenderer.SetPosition(0, new_pos+Object2.GetComponent<Transform>().position);
+            length-=Time.deltaTime*speed;
+            }
+            else{
+                // delete line renderer
+                Destroy(line);
+            }
+        }
+        else
+        {
+                    lineRenderer.SetPosition(0, Object1.GetComponent<Transform>().position);
         lineRenderer.SetPosition(1, Object2.GetComponent<Transform>().position);
+        length = Vector2.Distance(Object1.GetComponent<Transform>().position, Object2.GetComponent<Transform>().position);
+        }
+
     }
 }

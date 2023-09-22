@@ -7,6 +7,10 @@ public class TestTape : MonoBehaviour
 
     DistanceJoint2D pendulum_length;
 
+    [SerializeField] private GameObject flags_manager;
+
+
+
     void Start()
     {
         pendulum_length=GetComponent<DistanceJoint2D>();
@@ -14,7 +18,7 @@ public class TestTape : MonoBehaviour
 
     void Update()
     {
-      if(pendulum_length.distance > minPendulumLength)
+      if(pendulum_length.distance > minPendulumLength && flags_manager.GetComponent<TestFlags>().getFlag("swing"))
       {
         pendulum_length.distance -= decreaseRate * Time.deltaTime;
       }
