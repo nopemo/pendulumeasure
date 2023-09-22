@@ -28,10 +28,16 @@ public class TestMeasureForce : MonoBehaviour
         // Debug.DrawRay(transform.position, transform.right * power, Color.red);
         if (flags_manager.GetComponent<TestFlags>().getFlag("swing"))
         {
-
-        force_pos = force_point.GetComponent<Transform>().position;
-        rb.AddForceAtPosition((fulcrum_pos-(Vector2)force_pos).normalized * power * power_slider.GetComponent<Slider>().value , force_pos);
-        Debug.DrawRay(force_pos, (fulcrum_pos-(Vector2)force_pos).normalized * power* power_slider.GetComponent<Slider>().value, Color.red);
+            if (flags_manager.GetComponent<TestFlags>().getFlag("detach"))
+            {
+                Debug.Log("zero power");
+            }
+            else
+            {
+            force_pos = force_point.GetComponent<Transform>().position;
+            rb.AddForceAtPosition((fulcrum_pos - (Vector2)force_pos).normalized * power * power_slider.GetComponent<Slider>().value, force_pos);
+            Debug.DrawRay(force_pos, (fulcrum_pos - (Vector2)force_pos).normalized * power * power_slider.GetComponent<Slider>().value, Color.red);
+            }
         }
     }
 }

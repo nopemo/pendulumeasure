@@ -9,6 +9,7 @@ public class TestFlags : MonoBehaviour
   public void setFlag(string flag, bool value)
   {
     flags[flag] = value;
+    Debug.Log("Flag " + flag + " is now " + value);
   }
   public bool getFlag(string flag)
   {

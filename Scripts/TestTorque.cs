@@ -15,7 +15,6 @@ public class TestTorque : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // 摩擦を無視する
         rb.angularDrag = 0f;
 
     }
@@ -29,7 +28,16 @@ public class TestTorque : MonoBehaviour
 
             if (flags_manager.GetComponent<TestFlags>().getFlag("swing")){
             // 重心から指定位置にトルクをかける
-            rb.AddForceAtPosition(torqueMagnitude * Vector2.up, worldTorquePosition);
+                if (flags_manager.GetComponent<TestFlags>().getFlag("rewind_completed")){
+                    Debug.Log("enable joint");
+                    GetComponent<FixedJoint2D>().enabled = true;
+                }
+                else
+                {
+                //    rb.AddForceAtPosition(torqueMagnitude * Vector2.up, worldTorquePosition);
+                // 代わりにスピードを一定にする
+                rb.angularVelocity = torqueMagnitude;
+                }
             }
         }
     }
