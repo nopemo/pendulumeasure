@@ -68,16 +68,6 @@ public class TestLinePendulum : MonoBehaviour
                 lineRenderer.SetPosition(2, -tape_out.GetComponent<Transform>().up * l_length + fulcrum.GetComponent<Transform>().position);
                 length = Vector2.Distance(fulcrum.GetComponent<Transform>().position, tape_out.GetComponent<Transform>().position);
                 speed = Vector2.Distance(fulcrum.GetComponent<Rigidbody2D>().velocity, measure.GetComponent<Rigidbody2D>().velocity);
-                if (length < 0.5f)
-                {
-                    flags_manager.GetComponent<TestFlags>().setFlag("detach", true);
-                    lineRenderer.positionCount = 2;
-                    lineRenderer.SetPosition(0, tape_out.GetComponent<Transform>().position);
-                    lineRenderer.SetPosition(1, -tape_out.GetComponent<Transform>().up * l_length + tape_out.GetComponent<Transform>().position);
-                    lineRenderer.positionCount = 2;
-                    flags_manager.GetComponent<TestFlags>().setFlag("rewind_completed", true);
-                    Debug.Log("rewind completed");
-                }
             }
 
         }

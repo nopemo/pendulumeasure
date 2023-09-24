@@ -6,6 +6,7 @@ using TMPro;
 public class TestBG : MonoBehaviour
 {
     [SerializeField] private GameObject text;
+    [SerializeField] private GameObject text2;
     private int length;
     [SerializeField] private GameObject wall;
     // Start is called before the first frame update
@@ -23,8 +24,13 @@ public class TestBG : MonoBehaviour
         }
         if (text != null)
         {
-            length = (int)pos.x * 100;
+            length = (int)pos.x * 400;
             text.GetComponent<TextMeshProUGUI>().text = length.ToString() + "cm";
+        }
+        if (text2 != null)
+        {
+            length = (int)pos.x * 400 + 200;
+            text2.GetComponent<TextMeshProUGUI>().text = length.ToString() + "cm";
         }
     }
 }

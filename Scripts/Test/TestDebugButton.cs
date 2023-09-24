@@ -19,6 +19,7 @@ public class TestDebugButton : MonoBehaviour
     {
       // refresh the scene
       flags_manager.GetComponent<TestFlags>().setFlag("reset", false);
+      Time.timeScale = 1f;
       UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
     if (flag_name == "swing")

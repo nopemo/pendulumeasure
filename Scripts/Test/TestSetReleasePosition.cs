@@ -29,7 +29,7 @@ class TestSetReleasePosition : MonoBehaviour
       // measureの座標をtape_outputの相対座標分だけずらす
       measure.GetComponent<Transform>().position -= (tape_output.GetComponent<Transform>().position - measure.GetComponent<Transform>().position);
       spiral.GetComponent<Transform>().position = measure.GetComponent<Transform>().position;
-      spiral.GetComponent<Transform>().rotation = measure.GetComponent<Transform>().rotation;
+      spiral.GetComponent<Transform>().rotation = Quaternion.Euler(0, 0, measure.GetComponent<Transform>().rotation.eulerAngles.z + height_slider.GetComponent<Slider>().value * 360 * 4 / 125);
 
     }
     measure.GetComponent<Rigidbody2D>().gravityScale = gravity_slider.GetComponent<Slider>().value;

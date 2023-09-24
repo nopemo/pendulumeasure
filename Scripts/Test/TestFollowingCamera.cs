@@ -15,7 +15,7 @@ public class TestFollowingCamera : MonoBehaviour
   private Vector2 current_pos;
   private Dictionary<Vector2, GameObject> bg_dict = new Dictionary<Vector2, GameObject>();
 
-  void Start()
+  void Awake()
   {
     init_floor_pos = floor_tr.position;
     current_pos = AreaPosition((Vector2)measure_tr.position);
@@ -33,7 +33,7 @@ public class TestFollowingCamera : MonoBehaviour
       camera_pos = Vector3.Lerp(transform.position, measure_pos + init_camera_pos, 3.0f * Time.deltaTime);
 
       // カメラの位置を制限
-      camera_pos.y = init_camera_pos.y;
+      camera_pos.y = Mathf.Max(camera_pos.y, init_camera_pos.y);
       camera_pos.z = init_camera_pos.z;
       transform.position = camera_pos;
       floor_tr.position = new Vector3(camera_pos.x, init_floor_pos.y, init_floor_pos.z);
@@ -52,7 +52,8 @@ public class TestFollowingCamera : MonoBehaviour
     if (current_pos != temp_pos)
     {
       // 画面外の背景を削除
-      foreach (KeyValuePair<Vector2, GameObject> pair in bg_dict)
+      Dictionary<Vector2, GameObject> temp_dict = new Dictionary<Vector2, GameObject>(bg_dict);
+      foreach (KeyValuePair<Vector2, GameObject> pair in temp_dict)
       {
         if (Mathf.Abs(pair.Key.x - temp_pos.x) > 1 || Mathf.Abs(pair.Key.y - temp_pos.y) > 1)
         {
