@@ -32,13 +32,6 @@ public class CollisionDetector : MonoBehaviour
       GetComponent<CollisionDetector>().enabled = false;
       window_title.GetComponent<Text>().text = "タップしてリセット";
       window_description.GetComponent<Text>().text = "距離:" + score.ToString() + "cm";
-      // naichilab.RankingLoader.Instance.SendScoreAndShowRanking(score);
-      // 0.5秒後にnaichilab.RankingLoader.Instance.SendScoreAndShowRanking(score)を実行する
-      Invoke("ShowRanking", 0.5f);
     }
-  }
-  void ShowRanking()
-  {
-    naichilab.RankingLoader.Instance.SendScoreAndShowRanking((int)GetComponent<Transform>().position.x * 4);
   }
 }

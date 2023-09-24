@@ -15,6 +15,9 @@ public class OneButton : MonoBehaviour
     [SerializeField] private GameObject window_title;
     [SerializeField] private GameObject window_description;
     [SerializeField] private Transform measure;
+    [SerializeField] private GameObject process_text_angle;
+    [SerializeField] private GameObject process_text_height;
+    [SerializeField] private GameObject process_text_swing;
 
     private float max_angle = 360f;
     private float min_angle = 0f;
@@ -41,6 +44,7 @@ public class OneButton : MonoBehaviour
             determined_angle = (max_angle - min_angle) / 2 * (1 - Mathf.Sin(-Mathf.PI * scaled_time / 1.5f)) + min_angle;
             angle_slider.GetComponent<Slider>().value = determined_angle;
             window_description.GetComponent<Text>().text = "角度:" + ((int)(1.001 * (270 - determined_angle))).ToString("D3") + "°";
+            process_text_angle.GetComponent<Text>().text = ((int)(1.001 * (270 - determined_angle))).ToString() + "°";
         }
         else if (flags_manager.GetComponent<TestFlags>().getFlagString("game_section") == "height")
         {
@@ -48,11 +52,13 @@ public class OneButton : MonoBehaviour
             // 二次関数っぽく動かす
             height_slider.GetComponent<Slider>().value = ((max_height - min_height) / 2 * (1 - Mathf.Cos(Mathf.PI * scaled_time / 1.5f)) + min_height);
             window_description.GetComponent<Text>().text = "長さ:" + ((int)(4.0001 * height_slider.GetComponent<Slider>().value)).ToString("D3") + "cm";
+            process_text_height.GetComponent<Text>().text = ((int)(4.0001 * height_slider.GetComponent<Slider>().value)).ToString("D3") + "cm";
         }
         else if (flags_manager.GetComponent<TestFlags>().getFlagString("game_section") == "swing")
         {
             scaled_time += Time.deltaTime;
             window_description.GetComponent<Text>().text = "時間:" + Math.Round(scaled_time, 1).ToString() + "sec";
+            process_text_swing.GetComponent<Text>().text = Math.Round(scaled_time, 1).ToString() + "sec";
         }
         else if (flags_manager.GetComponent<TestFlags>().getFlagString("game_section") == "detach" || flags_manager.GetComponent<TestFlags>().getFlagString("game_section") == "detach_speedup")
         {

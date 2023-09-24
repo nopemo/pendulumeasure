@@ -67,7 +67,7 @@ public class TestLinePendulum : MonoBehaviour
                 lineRenderer.SetPosition(1, fulcrum.GetComponent<Transform>().position);
                 lineRenderer.SetPosition(2, -tape_out.GetComponent<Transform>().up * l_length + fulcrum.GetComponent<Transform>().position);
                 length = Vector2.Distance(fulcrum.GetComponent<Transform>().position, tape_out.GetComponent<Transform>().position);
-                speed = Vector2.Distance(fulcrum.GetComponent<Rigidbody2D>().velocity, measure.GetComponent<Rigidbody2D>().velocity);
+                speed = Mathf.Min(Mathf.Max(70f, Vector2.Distance(fulcrum.GetComponent<Rigidbody2D>().velocity, measure.GetComponent<Rigidbody2D>().velocity)), 210f);
             }
 
         }
